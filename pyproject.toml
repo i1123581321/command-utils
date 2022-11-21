@@ -1,6 +1,28 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "command-utils"
+version = "0.1.1"
+description = "command line utilties"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [
+    { name = "ZhengxuanQian" },
+    { email = "gokinjolno112358@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+[project.urls]
+repository = "https://github.com/i1123581321/command_utils"
+
+[project.scripts]
+split-video = "ffmpeg_utils.split_video:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
