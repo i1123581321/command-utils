@@ -3,18 +3,20 @@ import subprocess
 import sys
 from pathlib import Path
 
-parser = argparse.ArgumentParser(prog="split_video",
-                                 description="Divide the video into paragraphs of about 1 hour")
+parser = argparse.ArgumentParser(
+    prog="split-video",
+    description="Divide the video into paragraphs of about 1 hour",
+)
 
-parser.add_argument("input",
-                    type=str,
-                    help="Video path to be split")
+parser.add_argument("input", type=str, help="Video path to be split")
 
-parser.add_argument("-p",
-                    "--prefix",
-                    type=bool,
-                    default=False,
-                    help="keep video name as output prefix")
+parser.add_argument(
+    "-p",
+    "--prefix",
+    type=bool,
+    default=False,
+    help="keep video name as output prefix",
+)
 
 
 def get_duration(video: Path) -> int:
@@ -27,9 +29,10 @@ def get_duration(video: Path) -> int:
             "format=duration",
             "-of",
             "default=noprint_wrappers=1:nokey=1",
-            str(video.resolve())
+            str(video.resolve()),
         ],
-        capture_output=True).stdout.decode("utf-8")
+        capture_output=True,
+    ).stdout.decode("utf-8")
     seconds = float(result)
     return round(seconds / 3600)
 
@@ -48,20 +51,22 @@ def split(video: Path, number: int, keep_prefix: bool = False):
         else:
             filename = f"{str(i + 1).zfill(2)}{video_ext}"
 
-        subprocess.run([
-            "ffmpeg",
-            "-v",
-            "error",
-            "-i",
-            str(video.resolve()),
-            "-ss",
-            f"{start}:00:00",
-            "-to",
-            f"{end}:00:00",
-            "-c",
-            "copy",
-            filename
-        ])
+        subprocess.run(
+            [
+                "ffmpeg",
+                "-v",
+                "error",
+                "-i",
+                str(video.resolve()),
+                "-ss",
+                f"{start}:00:00",
+                "-to",
+                f"{end}:00:00",
+                "-c",
+                "copy",
+                filename,
+            ]
+        )
 
 
 def main():
