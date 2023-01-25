@@ -18,6 +18,10 @@ parser.add_argument(
     help="keep video name as output prefix",
 )
 
+parser.add_argument(
+    "-o", "--offset", type=int, default=0, help="output filename No. offset"
+)
+
 
 def get_duration(video: Path) -> int:
     result = subprocess.run(
@@ -37,7 +41,7 @@ def get_duration(video: Path) -> int:
     return round(seconds / 3600)
 
 
-def split(video: Path, number: int, keep_prefix: bool = False):
+def split(video: Path, number: int, keep_prefix: bool = False, offset: int = 0):
     video_name = video.stem
     video_ext = video.suffix
     for i in range(number):
@@ -47,9 +51,9 @@ def split(video: Path, number: int, keep_prefix: bool = False):
         else:
             end = str(i + 1).zfill(2)
         if keep_prefix:
-            filename = f"{video_name}_{str(i + 1).zfill(2)}{video_ext}"
+            filename = f"{video_name}_{str(i + 1 + offset).zfill(2)}{video_ext}"
         else:
-            filename = f"{str(i + 1).zfill(2)}{video_ext}"
+            filename = f"{str(i + 1 + offset).zfill(2)}{video_ext}"
 
         subprocess.run(
             [
@@ -76,4 +80,4 @@ def main():
         print(f"file not exist: {args.input}", file=sys.stderr)
         sys.exit(-1)
     duration = get_duration(video)
-    split(video, duration, args.prefix)
+    split(video, duration, args.prefix, args.offset)
