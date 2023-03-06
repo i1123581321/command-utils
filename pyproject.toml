@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "command-utils"
-version = "0.4.0"
+version = "0.5.0"
 description = "command line utilties"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -13,18 +13,44 @@ authors = [
     { name = "Qian" },
     { email = "gokinjolno112358@gmail.com" }
 ]
+maintainers = []
+keywords = ["command line"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent"
 ]
+dependencies = [
+
+]
+
+[project.optional-dependencies]
+dev = [
+    "flake8",
+    "isort",
+    "black",
+    "mypy",
+    "ipython",
+    "pre-commit"
+]
 
 [project.urls]
-repository = "https://github.com/i1123581321/command_utils"
+Source = "https://github.com/i1123581321/command_utils"
 
 [project.scripts]
 split-video = "ffmpeg_utils.split_video:main"
 flac-to-mp3 = "ffmpeg_utils.flac_to_mp3:main"
 split-text = "text_utils.split_text:main"
+zip-all = "zip_utils.zip_all:main"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+strict = true
+namespace_packages = false
+disallow_any_generics = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
