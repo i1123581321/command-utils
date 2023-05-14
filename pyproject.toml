@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "command-utils"
-version = "0.6.0"
+version = "0.7.0"
 description = "command line utilties"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -37,6 +37,7 @@ dev = [
 Source = "https://github.com/i1123581321/command_utils"
 
 [project.scripts]
+clip-video = "ffmpeg_utils.clip_video:main"
 delay-sub = "ffmpeg_utils.delay_sub:main"
 split-video = "ffmpeg_utils.split_video:main"
 flac-to-mp3 = "ffmpeg_utils.flac_to_mp3:main"
