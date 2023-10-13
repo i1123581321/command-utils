@@ -2,45 +2,35 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+# from https://peps.python.org/pep-0621/
 [project]
 name = "command-utils"
-version = "0.7.0"
+version = "0.8.0"
 description = "command line utilties"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = { file = "LICENSE" }
-authors = [
-    { name = "Qian" },
-    { email = "gokinjolno112358@gmail.com" }
-]
+authors = [{ name = "Qian" }, { email = "gokinjolno112358@gmail.com" }]
 maintainers = []
 keywords = ["command line"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent"
+    "Operating System :: OS Independent",
 ]
-dependencies = [
-
-]
+dependencies = ["typer~=0.9.0"]
 
 [project.optional-dependencies]
-dev = [
-    "flake8",
-    "isort",
-    "black",
-    "mypy",
-    "ipython",
-    "pre-commit"
-]
+dev = ["flake8", "isort", "black", "mypy", "ipython", "pre-commit"]
 
 [project.urls]
-Source = "https://github.com/i1123581321/command_utils"
+Source = "https://github.com/i1123581321/command-utils"
 
 [project.scripts]
 clip-video = "ffmpeg_utils.clip_video:main"
 delay-sub = "ffmpeg_utils.delay_sub:main"
-split-video = "ffmpeg_utils.split_video:main"
 flac-to-mp3 = "ffmpeg_utils.flac_to_mp3:main"
+split-video = "ffmpeg_utils.split_video:main"
+video-to-gif = "ffmpeg_utils.video_to_gif:main"
 split-text = "text_utils.split_text:main"
 zip-all = "zip_utils.zip_all:main"
 
