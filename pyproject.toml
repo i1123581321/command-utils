@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 # from https://peps.python.org/pep-0621/
 [project]
 name = "command-utils"
-version = "0.8.0"
+version = "0.9.0"
 description = "command line utilties"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -17,7 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-dependencies = ["typer~=0.9.0"]
+dependencies = ["typer[all]~=0.9.0"]
 
 [project.optional-dependencies]
 dev = ["flake8", "isort", "black", "mypy", "ipython", "pre-commit"]
@@ -33,6 +33,7 @@ split-video = "ffmpeg_utils.split_video:main"
 video-to-gif = "ffmpeg_utils.video_to_gif:main"
 split-text = "text_utils.split_text:main"
 zip-all = "zip_utils.zip_all:main"
+rename-sub = "common_utils.rename_sub:main"
 
 [tool.isort]
 profile = "black"
