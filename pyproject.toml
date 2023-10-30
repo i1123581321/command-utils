@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 # from https://peps.python.org/pep-0621/
 [project]
 name = "command-utils"
-version = "0.9.0"
+version = "0.10.0"
 description = "command line utilties"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -34,6 +34,7 @@ video-to-gif = "ffmpeg_utils.video_to_gif:main"
 split-text = "text_utils.split_text:main"
 zip-all = "zip_utils.zip_all:main"
 rename-sub = "common_utils.rename_sub:main"
+extract-audio = "ffmpeg_utils.extract_audio:main"
 
 [tool.isort]
 profile = "black"
