@@ -41,7 +41,7 @@ def get_duration(video: Path) -> int:
     return round(seconds / 3600)
 
 
-def split(video: Path, number: int, keep_prefix: bool = False, offset: int = 0):
+def split(video: Path, number: int, keep_prefix: bool = False, offset: int = 0) -> None:
     video_name = video.stem
     video_ext = video.suffix
     for i in range(number):
@@ -73,7 +73,7 @@ def split(video: Path, number: int, keep_prefix: bool = False, offset: int = 0):
         )
 
 
-def main():
+def main() -> None:
     args = parser.parse_args()
     video = Path(args.input)
     if not video.exists():

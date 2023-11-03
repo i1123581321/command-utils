@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser(
 )
 
 
-def main():
+def main() -> None:
     _ = parser.parse_args()
     for f in Path.cwd().iterdir():
         if f.is_dir():

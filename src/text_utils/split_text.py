@@ -10,7 +10,7 @@ parser.add_argument("filename", type=str, help="input file path")
 parser.add_argument("lineno", nargs="+", type=int, help="line numbers")
 
 
-def main():
+def main() -> None:
     args = parser.parse_args()
     filename = Path(args.filename)
     lineno: list[int] = args.lineno
