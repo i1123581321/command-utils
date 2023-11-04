@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 # from https://peps.python.org/pep-0621/
 [project]
 name = "command-utils"
-version = "0.11.0"
+version = "0.12.0"
 description = "command line utilties"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -36,6 +36,7 @@ zip-all = "zip_utils.zip_all:main"
 rename-sub = "common_utils.rename_sub:main"
 extract-audio = "ffmpeg_utils.extract_audio:main"
 unlock-pdf = "pdf_utils.unlock_pdf:main"
+convert-quote = "text_utils.convert_quote:main"
 
 [tool.isort]
 profile = "black"
