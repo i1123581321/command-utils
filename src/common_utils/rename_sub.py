@@ -3,7 +3,9 @@ from pathlib import Path
 import typer
 
 
-def rename_sub(video_ext: str = "mkv", sub_ext: str = "ass") -> None:
+def rename_sub(
+    video_ext: str = "mkv", sub_ext: str = "ass", suffix_num: int = -1
+) -> None:
     videos = [p for p in Path.cwd().iterdir() if p.suffix == f".{video_ext}"]
     subtitles = [p for p in Path.cwd().iterdir() if p.suffix == f".{sub_ext}"]
     if len(subtitles) % len(videos) != 0:
@@ -16,7 +18,12 @@ def rename_sub(video_ext: str = "mkv", sub_ext: str = "ass") -> None:
         j = 0
         while j < n:
             name_before = subtitles[i].name
-            name_after = f"{video.stem}{''.join(subtitles[i].suffixes)}"
+            suffixes = subtitles[i].suffixes
+            if suffix_num == -1:
+                suffix_num = len(suffixes)
+            suffix_num = min(len(suffixes), suffix_num)
+            suffixes = suffixes[len(suffixes) - suffix_num :]
+            name_after = f"{video.stem}{''.join(suffixes)}"
             print(f"{name_before} -> {name_after}")
             j += 1
             i += 1
