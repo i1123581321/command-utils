@@ -5,7 +5,9 @@ from typing import Optional
 import typer
 
 
-def convert_quote(filename: Optional[Path] = None, encoding: str = "utf-8") -> None:
+def convert_quote(
+    filename: Optional[Path] = typer.Argument(default=None), encoding: str = "utf-8"
+) -> None:
     if filename is not None:
         content = filename.read_text(encoding=encoding)
     else:
