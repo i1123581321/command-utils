@@ -1,26 +1,19 @@
-import argparse
 import subprocess
-import sys
 from pathlib import Path
+from typing import Annotated
 
-parser = argparse.ArgumentParser(
-    prog="split-video",
-    description="Divide the video into paragraphs of about 1 hour",
-)
+import typer
 
-parser.add_argument("input", type=str, help="Video path to be split")
 
-parser.add_argument(
-    "-p",
-    "--prefix",
-    type=bool,
-    default=False,
-    help="keep video name as output prefix",
-)
-
-parser.add_argument(
-    "-o", "--offset", type=int, default=0, help="output filename No. offset"
-)
+def split_video(
+    input: Annotated[
+        Path, typer.Argument(exists=True, dir_okay=False, resolve_path=True)
+    ],
+    prefix: bool = False,
+    offset: int = 0,
+) -> None:
+    duration = get_duration(input)
+    split(input, duration, prefix, offset)
 
 
 def get_duration(video: Path) -> int:
@@ -74,10 +67,4 @@ def split(video: Path, number: int, keep_prefix: bool = False, offset: int = 0) 
 
 
 def main() -> None:
-    args = parser.parse_args()
-    video = Path(args.input)
-    if not video.exists():
-        print(f"file not exist: {args.input}", file=sys.stderr)
-        sys.exit(-1)
-    duration = get_duration(video)
-    split(video, duration, args.prefix, args.offset)
+    typer.run(split_video)

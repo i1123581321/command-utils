@@ -1,15 +1,10 @@
-import argparse
 import subprocess
 from pathlib import Path
 
-parser = argparse.ArgumentParser(
-    prog="flac-to-mp3",
-    description="convert flac file to mp3 file in current directory",
-)
+import typer
 
 
-def main() -> None:
-    _ = parser.parse_args()
+def flac_to_mp3() -> None:
     for f in Path.cwd().glob("*.flac"):
         subprocess.run(
             [
@@ -23,3 +18,7 @@ def main() -> None:
                 f"{f.stem}.mp3",
             ]
         )
+
+
+def main() -> None:
+    typer.run(flac_to_mp3)

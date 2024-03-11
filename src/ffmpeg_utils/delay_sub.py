@@ -1,31 +1,21 @@
-import argparse
 import subprocess
 from pathlib import Path
 
-parser = argparse.ArgumentParser(
-    prog="delay-sub", description="call ffmpeg to delay sub files"
-)
-
-parser.add_argument("filename", type=str)
-parser.add_argument("time", type=str)
-parser.add_argument("-o", "--output", type=Path, default=(Path.cwd() / "output"))
+import typer
 
 
-def main() -> None:
-    args = parser.parse_args()
-    output: Path = args.output
-
+def delay_sub(pattern: str, time: str, output: Path = Path("output")) -> None:
     if not output.exists():
         output.mkdir()
 
-    for f in Path().cwd().glob(args.filename):
+    for f in Path().cwd().glob(pattern):
         subprocess.run(
             [
                 "ffmpeg",
                 "-v",
                 "error",
                 "-itsoffset",
-                args.time,
+                time,
                 "-i",
                 str(f.resolve()),
                 "-c",
@@ -33,3 +23,7 @@ def main() -> None:
                 str((output / f.name).resolve()),
             ]
         )
+
+
+def main() -> None:
+    typer.run(delay_sub)

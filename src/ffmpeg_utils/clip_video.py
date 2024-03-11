@@ -1,24 +1,20 @@
 import subprocess
-from argparse import ArgumentParser
 from pathlib import Path
+from typing import Annotated
 
-parser = ArgumentParser(
-    prog="clip-video", description="clip video by start timestamp and duration"
-)
+import typer
 
-parser.add_argument("input", type=Path, help="video to be cliped")
-parser.add_argument("start", type=str, help="start timestamp")
-parser.add_argument("duration", type=str, help="clip duration")
+from ffmpeg_utils.common import time_validator
 
 
-def main() -> None:
-    args = parser.parse_args()
-    filename: Path = args.input
-    if not filename.exists():
-        print(f"{filename.resolve()} dose not exist")
-        exit(-1)
-
-    output = f"clip{filename.suffix}"
+def clip_video(
+    input: Annotated[
+        Path, typer.Argument(exists=True, dir_okay=False, resolve_path=True)
+    ],
+    start: Annotated[str, typer.Argument(callback=time_validator)],
+    duration: Annotated[str, typer.Argument(callback=time_validator)],
+) -> None:
+    output = f"clip{input.suffix}"
 
     subprocess.run(
         [
@@ -26,13 +22,17 @@ def main() -> None:
             "-v",
             "error",
             "-ss",
-            args.start,
+            start,
             "-i",
-            str(filename.resolve()),
+            str(input.resolve()),
             "-to",
-            args.duration,
+            duration,
             "-c",
             "copy",
             output,
         ]
     )
+
+
+def main() -> None:
+    typer.run(clip_video)

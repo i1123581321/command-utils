@@ -1,14 +1,14 @@
-import argparse
 import subprocess
 from pathlib import Path
 
-parser = argparse.ArgumentParser(
-    prog="zip-all", description="zip all subfolder into individual zip archives"
-)
+import typer
 
 
-def main() -> None:
-    _ = parser.parse_args()
+def zip_all() -> None:
     for f in Path.cwd().iterdir():
         if f.is_dir():
             subprocess.run(["7z", "a", "-tzip", f"{f.name}.zip", f"./{f.name}/*"])
+
+
+def main() -> None:
+    typer.run(zip_all)
